@@ -1,0 +1,107 @@
+
+
+          Save Code
+
+
+          Dim EmpId As Integer = TextBox1.Text
+        Dim EmployeeName As String = TextBox2.Text
+        Dim Email As String = TextBox3.Text
+        Dim Address As String = TextBox4.Text
+        Dim Salary As String = TextBox5.Text
+
+        Dim Query As String = "Insert into Employee values(@empid,@employeename,@email,@address,@salary)"
+        Using con As SqlConnection = New SqlConnection("Data Source=DESKTOP-HEEKBHE\SQLEXPRESS;Initial Catalog=EmployeeDB;Integrated Security=True")
+            Using cnn As SqlCommand = New SqlCommand(Query, con)
+                cnn.Parameters.AddWithValue("@EmpId", EmpId)
+                cnn.Parameters.AddWithValue("@EmployeeName", EmployeeName)
+                cnn.Parameters.AddWithValue("@Email", Email)
+                cnn.Parameters.AddWithValue("@Address", Address)
+                cnn.Parameters.AddWithValue("@Salary", Salary)
+
+                con.Open()
+                cnn.ExecuteNonQuery()
+                con.Close()
+                MessageBox.Show("Record Saved Successfully")
+
+
+
+
+            End Using
+        End Using
+
+
+
+
+
+       Insert Code
+
+
+
+        Dim query As String = "Select * from Employee"
+        Using con As SqlConnection = New SqlConnection("Data Source=DESKTOP-HEEKBHE\SQLEXPRESS;Initial Catalog=EmployeeDB;Integrated Security=True")
+            Using cnn As SqlCommand = New SqlCommand(Query, con)
+                Using da As New SqlDataAdapter(cnn)
+                    Using de As New DataTable()
+                        da.Fill(de)
+                        DataGridView1.DataSource = de
+
+                    End Using
+
+                End Using
+            End Using
+
+        End Using
+
+
+
+
+
+        Update Code
+
+
+
+        Dim EmpId As Integer = TextBox1.Text
+        Dim EmployeeName As String = TextBox2.Text
+        Dim Email As String = TextBox3.Text
+        Dim Address As String = TextBox4.Text
+        Dim Salary As String = TextBox5.Text
+
+        Dim Query As String = "Update Employee set employeename=@employeename,email=@email,address=@address,salary=@salary where empid=@empid"
+        Using con As SqlConnection = New SqlConnection("Data Source=DESKTOP-HEEKBHE\SQLEXPRESS;Initial Catalog=EmployeeDB;Integrated Security=True")
+            con.Open()
+            Using cnn As SqlCommand = New SqlCommand(Query, con)
+                cnn.Parameters.AddWithValue("@EmpId", EmpId)
+                cnn.Parameters.AddWithValue("@EmployeeName", EmployeeName)
+                cnn.Parameters.AddWithValue("@Email", Email)
+                cnn.Parameters.AddWithValue("@Address", Address)
+                cnn.Parameters.AddWithValue("@Salary", Salary)
+
+
+                cnn.ExecuteNonQuery()
+                con.Close()
+                MessageBox.Show("Record Updated Successfully")
+
+            End Using
+
+        End Using
+
+
+
+
+
+         Delete Code
+
+
+         Dim EmpId As Integer = TextBox1.Text
+        Dim query As String = "Delete Employee where empid=@empid"
+        Using con As SqlConnection = New SqlConnection("Data Source=DESKTOP-HEEKBHE\SQLEXPRESS;Initial Catalog=EmployeeDB;Integrated Security=True")
+            con.Open()
+            Using cnn As SqlCommand = New SqlCommand(query, con)
+                cnn.Parameters.AddWithValue("@EmpId", EmpId)
+                cnn.ExecuteNonQuery()
+                con.Close()
+                MessageBox.Show("Record Deleted Successfully")
+
+            End Using
+
+        End Using
